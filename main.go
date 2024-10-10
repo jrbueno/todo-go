@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -57,6 +58,12 @@ func main() {
 
 	//Fiber Setup
 	app := fiber.New()
+
+	//Add CORS Middleware
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173",
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 
 	//Routes
 	app.Get("/", func(c *fiber.Ctx) error {
